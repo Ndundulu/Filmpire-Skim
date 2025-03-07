@@ -11,9 +11,11 @@ export const Root = styled(Box)(() => ({
 //Styled component for the main containter area
 export const Main = styled('main')(()=>({
     flexGrow: 1, 
-    padding: '10em',
+    padding: '80px 264px',
+    
 }));
 
 export const Div = styled('div')(() => ({
     height: '70px',
 }))
+

@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App.jsx';
+import App from './components/RD_App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 
 // Get the container div
 const containerElement = document.getElementById('app-container')
 
 if (containerElement) {
-  const reactRoot = ReactDOM.createRoot(containerElement);
-  reactRoot.render(
+  ReactDOM.createRoot(containerElement).render(
   <BrowserRouter>
     <App />
   </BrowserRouter>);
