@@ -48,7 +48,7 @@ const SideBar = ({ setMobileOpen }) => {
                 <ListSubheader>Categories</ListSubheader>
                 {demoCategories.map((category) => (
                     <DcLink key={category.value} to={`/${category.value}`}>
-                        <ListItem onClick={() => {}} button>
+                        <ListItem onClick={() => {}} button='true'>
                             {/* <ListItemIcon>
                                 <GenreImages src={redLogo} height={30} />
                             </ListItemIcon> */}

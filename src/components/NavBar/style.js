@@ -14,18 +14,17 @@ export const StyledToolbar = styled(Toolbar)(({theme}) => ({
     height: '80px',
     display: 'flex',
     justifyContent: 'space-between',
-    marginLeft: '240px',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: drawerWidth, // Offset for permanent Drawer on desktop
+    },
     [theme.breakpoints.down('sm')]: {
-        marginLeft: 0,
-        flexWrap: 'wrap',
-    }
+        marginLeft: 0, // No offset on mobile (temporary Drawer)
+        padding: '0 8px', // Consistent mobile padding
+    },
 }));
 
 export const StyledIconButton = styled(IconButton)(({theme}) => ({
     marginRight: theme.spacing(2), 
-    [theme.breakpoints.up('sm')]: {
-        display: 'none',
-    }
 }));
 
 export const StyleIconbutton2 = styled(IconButton)(({theme}) => ({}));

@@ -12,8 +12,9 @@ const NavBar = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const isMobile = useMediaQuery("(max-width:600px)");
     const theme = useTheme();
-    const isAuthenticated = false;
-    const ismale = false;
+    const isAuthenticated = true;
+    const ismale = true;
+    const nbsp = '\u00A0'
 
     return (
         <>
@@ -21,13 +22,13 @@ const NavBar = () => {
                 <StyledToolbar>
                     {isMobile && (
                         <StyledIconButton color="inherit" edge="start" onClick={() => setMobileOpen(!mobileOpen)}>
-                            <MenuIcon />
+                            <MenuIcon style={{width:'30', height:'30'}} />
                         </StyledIconButton>
                     )}
                     <StyleIconbutton2 color='inherit' sx={{ml:1}} onClick={() => {}}>
-                        {theme.palette.mode === "dark" ? <Brightness7/> : <Brightness4/>}
+                        {theme.palette.mode === "dark" ? <Brightness7 style={{width:'30', height:'30'}}/> : <Brightness4 style={{width:'30', height:'30'}}/>}
                     </StyleIconbutton2>
-                    {!isMobile && <IconButton sx={{color:'white'}}> Search...<SearchIcon/> </IconButton>}
+                    {!isMobile && <IconButton sx={{color:'white'}}> Search...<SearchIcon style={{width:'30', height:'30'}}/> </IconButton>}
                     <div>
                         {!isAuthenticated ? (
                             <Button color='inherit' onClick={() => {}}>
@@ -40,7 +41,7 @@ const NavBar = () => {
                                 to={`/profile/:id`}
                                 onClick={() => {}}
                             >
-                                {!isMobile && <>My Movies  </>}
+                                {!isMobile && <>My Movies {nbsp} {nbsp} </>}
                                 {ismale ? (
                                     <Avatar
                                         style={{width:30, height: 30}}
@@ -57,7 +58,7 @@ const NavBar = () => {
                             </Button>
                         )}
                     </div>
-                    {isMobile && <IconButton sx={{color:'white'}}><SearchIcon/></IconButton>}
+                    {isMobile && <IconButton sx={{color:'white'}}><SearchIcon style={{width:'30', height:'30'}} /></IconButton>}
                 </StyledToolbar>
             </StyledAppBar>
             <div>
@@ -65,9 +66,9 @@ const NavBar = () => {
                     {isMobile ? (
                         <StyledDrawerbg
                             variant="temporary"
-                            anchor="right"
+                            anchor="left"
                             open={mobileOpen}
-                            onClose={() => setMobileOpen(false)}
+                            onClose={() => {setMobileOpen(false)}}
                             ModalProps={{keepMounted: true}}
                         >
                             <SideBar setMobileOpen={setMobileOpen}/>
