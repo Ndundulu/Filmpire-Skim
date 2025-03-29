@@ -20,6 +20,7 @@ export const StyledToolbar = styled(Toolbar)(({theme}) => ({
     [theme.breakpoints.down('sm')]: {
         marginLeft: 0, // No offset on mobile (temporary Drawer)
         padding: '0 8px', // Consistent mobile padding
+        flexWrap: 'wrap'
     },
 }));
 

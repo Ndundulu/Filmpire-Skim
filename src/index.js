@@ -4,16 +4,21 @@ import App from './components/RD_App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store.js'
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
 
+const theme = createTheme();
 // Get the container div
 const containerElement = document.getElementById('app-container')
 
 if (containerElement) {
   ReactDOM.createRoot(containerElement).render(
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ThemeProvider theme={(theme)}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>)
 } else {
   console.error("App container element not found!");

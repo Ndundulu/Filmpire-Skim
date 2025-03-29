@@ -1,20 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, useMediaQuery, Avatar, IconButton, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { StyledAppBar, StyledToolbar, StyledIconButton, StyleIconbutton2, StyledDrawerbg, StyleNav } from "./style.js"; 
 import { Brightness7, Brightness4, AccountCircle } from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { SideBar } from "../componentExport.js"; // Adjust import path as needed
+import { SideBar, Search } from "../componentExport.js";
+import { fetchToken, createSessionId, moviesAPI } from "../../utils/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, userSelector } from "../../features/auth.js";
+
 
 const NavBar = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const isMobile = useMediaQuery("(max-width:600px)");
     const theme = useTheme();
-    const isAuthenticated = true;
+    const dispatch = useDispatch()
+    const {isAuthenticated, user} = useSelector(userSelector)
     const ismale = true;
-    const nbsp = '\u00A0'
+    const nbsp = '\u00A0';
+    const token = localStorage.getItem('request_token');
+    const sessionIdFromLocalHost = localStorage.getItem('session_id');
+    console.log(user)
+    useEffect(() => {
+        const logInUser = async () => {
+            if (token) {
+                try{
+                    let userData;
+                    if (sessionIdFromLocalHost ) {
+                        const {data} = await moviesAPI.get(`/account?session_id=${sessionIdFromLocalHost}`)
+                        userData = data;                    
+                    } else {
+                        const sessionId = await createSessionId();
+                        const {data} = await moviesAPI.get(`/account?session_id=${sessionId}`)
+                        userData = data;
+                    }
+                    dispatch(setUser(userData))
+                }catch(error){
+                    console.log('Failed to log in user:', error)
+                }
+
+            }
+        };
+        logInUser();
+    },[token, dispatch])
 
     return (
         <>
@@ -28,17 +57,17 @@ const NavBar = () => {
                     <StyleIconbutton2 color='inherit' sx={{ml:1}} onClick={() => {}}>
                         {theme.palette.mode === "dark" ? <Brightness7 style={{width:'30', height:'30'}}/> : <Brightness4 style={{width:'30', height:'30'}}/>}
                     </StyleIconbutton2>
-                    {!isMobile && <IconButton sx={{color:'white'}}> Search...<SearchIcon style={{width:'30', height:'30'}}/> </IconButton>}
+                    {!isMobile && <Search/>}
                     <div>
                         {!isAuthenticated ? (
-                            <Button color='inherit' onClick={() => {}}>
+                            <Button color='inherit' onClick={fetchToken}>
                                 <> Login  </> <AccountCircle />
                             </Button>
                         ) : (
                             <Button 
                                 color='inherit' 
                                 component={Link}
-                                to={`/profile/:id`}
+                                to={`/profile/${user?.id}`}
                                 onClick={() => {}}
                             >
                                 {!isMobile && <>My Movies {nbsp} {nbsp} </>}
@@ -58,7 +87,7 @@ const NavBar = () => {
                             </Button>
                         )}
                     </div>
-                    {isMobile && <IconButton sx={{color:'white'}}><SearchIcon style={{width:'30', height:'30'}} /></IconButton>}
+                    {isMobile && <Search/>}
                 </StyledToolbar>
             </StyledAppBar>
             <div>
@@ -66,7 +95,7 @@ const NavBar = () => {
                     {isMobile ? (
                         <StyledDrawerbg
                             variant="temporary"
-                            anchor="left"
+                            anchor="right"
                             open={mobileOpen}
                             onClose={() => {setMobileOpen(false)}}
                             ModalProps={{keepMounted: true}}

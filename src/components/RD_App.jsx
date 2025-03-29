@@ -15,7 +15,7 @@ const App = () => {
         flexGrow: 1,
         padding: isMobile ? '80px 16px 24px 16px' : '80px 24px 24px 24px',
         width: isMobile ? '100%' : 'calc(100% - 240px)',
-        maxWidth: isMobile ? '100%' : '1200px',
+        maxWidth: isMobile ? '100%' : '100%',
         marginLeft: isMobile ? '0' : '240px',
         marginRight: 'auto',
     }
@@ -25,8 +25,7 @@ const App = () => {
         <NavBar/>
         <main style={mainStyles}>
             <Routes>
-                <Route path="/" element={<Movies/>} />
-                
+                <Route path="/" element={<Movies/>} />               
                 <Route path="/movie/:id" element={<Movie_Information/>} />
                 <Route path="/profile/:id" element={<Profile/>}/>
                 <Route path="/actors/:id" element={<Actors/>}/>
