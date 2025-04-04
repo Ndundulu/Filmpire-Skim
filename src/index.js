@@ -4,21 +4,18 @@ import App from './components/RD_App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store.js'
-import { ThemeProvider } from '@emotion/react';
-import { createTheme } from '@mui/material';
-
-const theme = createTheme();
+import ToggleColormode from './utils/ToggleColormode.jsx';
 // Get the container div
 const containerElement = document.getElementById('app-container')
 
 if (containerElement) {
   ReactDOM.createRoot(containerElement).render(
     <Provider store={store}>
-      <ThemeProvider theme={(theme)}>
+      <ToggleColormode>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </ThemeProvider>
+      </ToggleColormode>
     </Provider>)
 } else {
   console.error("App container element not found!");

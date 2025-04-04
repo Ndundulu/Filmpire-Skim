@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, useMediaQuery, Avatar, IconButton, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { StyledAppBar, StyledToolbar, StyledIconButton, StyleIconbutton2, StyledDrawerbg, StyleNav } from "./style.js"; 
@@ -9,6 +9,8 @@ import { SideBar, Search } from "../componentExport.js";
 import { fetchToken, createSessionId, moviesAPI } from "../../utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, userSelector } from "../../features/auth.js";
+import ToggleColormode from "../../utils/ToggleColormode.jsx";
+import { ColorModeContext } from "../../utils/ToggleColormode.jsx";
 
 
 const NavBar = () => {
@@ -16,6 +18,8 @@ const NavBar = () => {
     const isMobile = useMediaQuery("(max-width:600px)");
     const theme = useTheme();
     const dispatch = useDispatch()
+
+    const colorMode = useContext(ColorModeContext)
     const {isAuthenticated, user} = useSelector(userSelector)
     const ismale = true;
     const nbsp = '\u00A0';
@@ -54,7 +58,7 @@ const NavBar = () => {
                             <MenuIcon style={{width:'30', height:'30'}} />
                         </StyledIconButton>
                     )}
-                    <StyleIconbutton2 color='inherit' sx={{ml:1}} onClick={() => {}}>
+                    <StyleIconbutton2 color='inherit' sx={{ml:1}} onClick={colorMode.toggleColorMode}>
                         {theme.palette.mode === "dark" ? <Brightness7 style={{width:'30', height:'30'}}/> : <Brightness4 style={{width:'30', height:'30'}}/>}
                     </StyleIconbutton2>
                     {!isMobile && <Search/>}
@@ -71,19 +75,11 @@ const NavBar = () => {
                                 onClick={() => {}}
                             >
                                 {!isMobile && <>My Movies {nbsp} {nbsp} </>}
-                                {ismale ? (
-                                    <Avatar
-                                        style={{width:30, height: 30}}
-                                        alt="profile"
-                                        src="https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg"
-                                    />
-                                ) : (
-                                    <Avatar
-                                        style={{width:30, height: 30}}
-                                        alt="profile"
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWO4c2-HYw95SMxCc10AkxJ7bETMnXlivyY5Cw4f-6NmV2nTOWN_zG3onmbVO98Ohxj0w&usqp=CAU"
-                                    /> 
-                                )}
+                                <Avatar
+                                    style={{width:30, height: 30}}
+                                    alt="profile"
+                                    src="https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg"
+                                />
                             </Button>
                         )}
                     </div>

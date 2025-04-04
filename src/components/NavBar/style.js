@@ -6,8 +6,8 @@ import useTheme from "@mui/material";
 const drawerWidth = 240;
 
 export const StyledAppBar = styled(AppBar)(({theme}) => ({
-    backgroundColor: '#1976d2',
     color: "white",
+    filter: theme.palette.mode === 'dark' ? theme.palette.background.default : '#1976d2',
 }));
 
 export const StyledToolbar = styled(Toolbar)(({theme}) => ({

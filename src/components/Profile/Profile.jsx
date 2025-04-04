@@ -6,7 +6,7 @@ import {ExitToApp} from '@mui/icons-material'
 
 const logout = () => {
  
-        localStorage.clear();
+        localStorage.clear()
 
         window.location.href = '/';
 }

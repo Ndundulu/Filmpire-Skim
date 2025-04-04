@@ -1,34 +1,21 @@
-import {styled} from '@mui/material/styles'
-import {Link} from 'react-router-dom'
-import useTheme from '@mui/material/styles'
+import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
+export const StyleLink = styled(Link)({
+  display: 'flex',
+  justifyContent: "center",
+  padding: '10% 0',
+});
 
+export const StyleImg = styled('img')({
+  width: '70%',
+});
 
-export const StyleLink = styled(Link)(
-    {
-    display: 'flex',
-    justifyContent: "center",
-    padding: '10% 0'
-    }
-)
+export const GenreImages = styled('img')(({ theme }) => ({
+  filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'none', // More explicit
+}));
 
-export const StyleImg = styled('img')(
-    {
-        width: '70%',
-    }
-)
-
-
-export const GenreImages = styled('img')(({theme}) => 
-    ({
-        filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'none',
-    })
-)
-
-export const DcLink = styled(Link)(({theme}) => 
-    ({
-        color: theme.palette.text.primary,
-        textDecoration: 'none'
-    
-    })
-)
+export const DcLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  textDecoration: 'none',
+}));
