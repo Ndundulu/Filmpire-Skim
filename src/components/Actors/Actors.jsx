@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetActorDetailsQuery, useGetMoviesByActorIdQuery } from "../../services/TMDB";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { CircularProgress, Grid2, Typography, Box, Button } from "@mui/material";
 import { ButtonContainer, GridContainer, Poster } from "./style";
 import { ArrowBack } from "@mui/icons-material";
@@ -12,13 +12,32 @@ import { MovieList } from "../componentExport";
 
 const Actors = () => {
     const {id} = useParams();
-    console.log("id", id)
+    const navigate = useNavigate();
+    const page = 1;
+
     const {data, error, isFetching} = useGetActorDetailsQuery(id)
-    // const {id, page} = useGetMoviesByActorIdQuery()
-    console.log(data) 
+    const {data: movies} = useGetMoviesByActorIdQuery({id, page}) 
+    console.log('Movies', movies)
+    console.log("id", "page", page, id)
+
     if (isFetching){
             <CircularProgress/>
     }
+
+    if (error) {
+        return (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Button
+              startIcon={<ArrowBack />}
+              onClick={() => navigate(-1)} // Replaces history.goBack()
+              color="primary"
+            >
+              Go back
+            </Button>
+          </Box>
+        );
+      }
+    
 
     return (
         <>
@@ -53,8 +72,9 @@ const Actors = () => {
         </GridContainer>
         <Box>
             <Typography variant="h2" gutterBottom align="center">Movies</Typography>
-            {/* {movies && <MovieList movies={movies} numberOfMovies={12} />} */}
+            {movies && <MovieList movies={movies} numberOfMovies={12} />}
         </Box>
+        
         </>
     )
 }
