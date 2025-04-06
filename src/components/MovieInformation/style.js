@@ -1,5 +1,7 @@
-import { styled, Grid2, Modal } from "@mui/material";
+import { styled, Grid2} from "@mui/material";
 import { Link, Button } from "react-router-dom";
+import {Modal} from '@mui/material';
+
 
 
 export const GridContainer = styled(Grid2)(({theme}) => ({
@@ -69,7 +71,7 @@ export const CastImage = styled('img')(({theme}) => ({
     borderRadius: '10px'
 }))
 
-export const ButtonContainer = styled (Grid2)(({theme}) => ({
+export const ButtonContainer = styled(Grid2)(({theme}) => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
@@ -79,7 +81,8 @@ export const ButtonContainer = styled (Grid2)(({theme}) => ({
 
 }))
 
-
-export const ClassModal = styled(Modal)(({theme}) => ({
-    
+export const ClassModal =  styled(Modal)(() => ({
+    display: 'flex', 
+    alignItems: 'center',
+    justifyContent: 'center'
 }))

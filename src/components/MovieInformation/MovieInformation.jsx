@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useState}from "react";
 import {Typography, Modal, Button, CircularProgress, Box, ButtonGroup, Rating, useMediaQuery, Grid2} from '@mui/material';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import axios from 'axios'; 
 import { useGetMovieQuery, useGetRecommendationQuery } from "../../services/TMDB";
@@ -16,13 +16,14 @@ const Movie_Information = () => {
     const { data, isFetching, error} = useGetMovieQuery(id);
     const dispatch = useDispatch();
     const {data: recommendations, isFetching: isFetchingRecommendation, error: recommendationError} = useGetRecommendationQuery({list: 'recommendations',movie_id: id});
-
+    const [open, setOpen] = useState(false);
     const isMovieFavorited = true;
     const isMovieWatchListed = false;
+    const isSmallScreen = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
     const addToFavorite = () => {};
     const addToWatchList = () => {};
-
+    console.log("Movie:",data)
     if (isFetching) {
         return (
             <Box display='flex' justifyContent='center' alignItems='center'>
@@ -31,7 +32,7 @@ const Movie_Information = () => {
         );
     }
 
-    if (error) {
+    if (error || !data) { // Add !data check
         return <Link to='/'>Something has gone wrong - Go back.</Link>;
     }
 
@@ -106,7 +107,7 @@ const Movie_Information = () => {
                             <ButtonGroup size="medium" variant="outlined">
                                 <Button target="_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<Language />}>Website</Button>
                                 <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<Movie/>}>IMDB</Button>
-                                <Button target="_blank" rel="noopener noreferrer" href={``} endIcon={<Theaters/>}>Trailer</Button>
+                                <Button target="_self" rel="noopener noreferrer" href={`#`} endIcon={<Theaters/>} onClick={() => setOpen(true)}>Trailer</Button>
                             </ButtonGroup>
                         </Grid2>
                         <Grid2 item xs={12} sm={6}>
@@ -134,6 +135,33 @@ const Movie_Information = () => {
                 <Box>Sorry, nothing was found</Box>
                 )}
             </Box>
+            <ClassModal
+                closeAfterTransition
+                open={open}
+                onClose = {() => setOpen(false)}
+            >
+                {data?.videos?.results?.length > 0 ? (
+                    <iframe
+                        autoplay
+                        border = '0'  
+                        title= 'Trailer'   
+                        src= {`https://www.youtube.com/embed/${data.videos.results[0].key}?autoplay=1`}
+                        allow= 'autoplay; encrypted-media'
+                        allowFullScreen
+                        style={{
+                            width: isSmallScreen ? '90%' : '50%',
+                            height: isSmallScreen ? '90%' : '50%',
+                            border: 'none',
+                            display: 'block',
+                            margin: '0 auto',
+                        }}
+                    />            
+                ) : 
+                    <Typography>
+                        No Movie Trailer!
+                    </Typography>
+                }
+            </ClassModal>
         </GridContainer>
     );
 };
