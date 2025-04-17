@@ -12,6 +12,10 @@ const ToggleColormode = ({children}) => {
     const theme = useMemo(() => createTheme({
                 palette: {
                     mode,
+                    primary: {
+                        main: mode === 'dark' ? "#FFD700" : "#008080"
+                    }
+
                 },
             }
         ),

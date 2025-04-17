@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { useGetActorDetailsQuery, useGetMoviesByActorIdQuery } from "../../services/TMDB";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { CircularProgress, Grid2, Typography, Box, Button } from "@mui/material";
 import { ButtonContainer, GridContainer, Poster } from "./style";
 import { ArrowBack } from "@mui/icons-material";
 import { MovieList } from "../componentExport";
+import Pagination from "../Pagination/Pagination";
 
 
 
@@ -13,7 +14,7 @@ import { MovieList } from "../componentExport";
 const Actors = () => {
     const {id} = useParams();
     const navigate = useNavigate();
-    const page = 1;
+    const [page, setPage] = useState(1)
 
     const {data, error, isFetching} = useGetActorDetailsQuery(id)
     const {data: movies} = useGetMoviesByActorIdQuery({id, page}) 
@@ -74,7 +75,7 @@ const Actors = () => {
             <Typography variant="h2" gutterBottom align="center">Movies</Typography>
             {movies && <MovieList movies={movies} numberOfMovies={12} />}
         </Box>
-        
+        <Pagination currentPage={page} setPage={setPage} totalPages={movies?.total_pages}/>
         </>
     )
 }

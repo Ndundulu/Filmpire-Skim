@@ -6,6 +6,8 @@ import { useGetGenresQuery } from "../../services/TMDB.js";
 import Icons from '../../assets/genres';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGenreOrCategory } from "../../features/currentGenresOrCategories.js";
+import RedLogo from '../../assets/genres/BBb.png'; // Updated to RedLogo.png
+import GoldLogo from '../../assets/genres/Gww.png'; // Updated to GoldLogo.png
 
 const Categories = [
   { label: 'Popular', value: 'popular' },
@@ -16,8 +18,6 @@ const Categories = [
 const SideBar = ({ setMobileOpen }) => {
   const { genreIdOrCategoryName } = useSelector((state) => state.currentGenresOrCategories);
   const theme = useTheme();
-  const redLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
-  const blueLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
   const { data, error, isFetching } = useGetGenresQuery();
   const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState(null);
@@ -34,13 +34,13 @@ const SideBar = ({ setMobileOpen }) => {
         flexDirection: 'column',
         height: '100%',
         overflow: 'auto',
-        backgroundColor: theme.palette.background.default, // Apply theme background
-        color: theme.palette.text.primary, // Ensure text adapts
+        backgroundColor:  theme.palette.background.default,
+        color: theme.palette.text.primary,
       }}
     >
       <StyleLink to='/'>
         <StyleImg
-          src={theme.palette.mode === 'light' ? redLogo : blueLogo}
+          src={theme.palette.mode === 'light' ? RedLogo : GoldLogo} // Updated variable names
           alt="Filmpire logo"
         />
       </StyleLink>

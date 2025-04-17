@@ -10,6 +10,7 @@ import Icons from '../../assets/genres';
 import { selectGenreOrCategory } from "../../features/currentGenresOrCategories.js";
 import { Movie, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack } from '@mui/icons-material';
 import { MovieList } from "../componentExport.js";
+import Pagination from "../Pagination/Pagination.jsx";
 
 const Movie_Information = () => {
     const {id} = useParams();
@@ -76,7 +77,7 @@ const Movie_Information = () => {
                         </Typography>
                     </Box>
                     <Typography variant="h6" sx={{ marginLeft: '20px' }}>
-                        {data?.runtime}min / {data.release_date.split('-').join(' ')} / {data?.spoken_languages[0]?.name}
+                        {data?.runtime}min | Language: {data?.spoken_languages[0]?.name}
                     </Typography>
                 </GridContainer>
                 <GridGenre item>
