@@ -1,48 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { StyledDiv, StyledTextField } from './style.js';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+// src/components/Search/Search.jsx
+import React, { useState } from 'react';
+import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { InputAdornment } from '@mui/material';
-import { searchMovie } from '../../features/currentGenresOrCategories.js';
 
 const Search = () => {
   const [query, setQuery] = useState('');
-  const dispatch = useDispatch();
-  const location = useLocation();
-
-  // Debounce timer
-  useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      if (query.trim() !== '') {
-        dispatch(searchMovie(query));
-      }
-    }, 1000); // waits 0.5 seconds after typing stops
-
-    return () => clearTimeout(delayDebounce);
-  }, [query, dispatch]);
-
-  if (location.pathname !== '/') return null;
 
   return (
-    <StyledDiv>
-      <StyledTextField
+    <div  className='md:flex-1 md:px-60' style={{ flexGrow: 1, padding: '0 16px' }}>
+      <TextField
+        fullWidth
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        variant="standard"
-        style={{ color: 'white' }}
-        slotProps={{
-          input: {
-            startAdornment: (
-              <InputAdornment position="start" sx={{ color: 'white' }}>
-                <SearchIcon />
-              </InputAdornment>
-            ),
+        placeholder="Search for a movie..."
+        variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon sx={{ color: '#ccc' }} />
+            </InputAdornment>
+          ),
+          style: {
+            color: 'white',
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '50px',
+            height: '36px',
           },
         }}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': { border: '1px solid rgba(255,255,255,0.2)' },
+            '&:hover fieldset': { border: '1px solid #fff' },
+            '&.Mui-focused fieldset': { border: '1px solid #fff' },
+          },
+          '& input::placeholder': { color: '#aaa', opacity: 0.8 },
+        }}
       />
-    </StyledDiv>
+    </div>
   );
 };
 
 export default Search;
+
