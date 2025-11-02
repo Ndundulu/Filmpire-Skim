@@ -9,6 +9,7 @@ export const StyleLink = styled(Link)({
 
 export const StyleImg = styled('img')({
   width: '70%',
+  height: '70%',
   backgroundColor: 'transparent'
 });
 

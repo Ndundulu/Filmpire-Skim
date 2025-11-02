@@ -24,8 +24,8 @@ export const TgTitle = styled(Typography)(({theme}) => ({
 
 export const Styledimg = styled('img')(() => ({
     borderRadius: "20px", 
-    height: '300px',
-    width: '100%',
+    height: '270px',
+    width: '90%',
     marginBottom: '10px',
     '&:hover': {
         transform: 'scale(1.05)',
