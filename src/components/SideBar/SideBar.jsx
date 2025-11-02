@@ -93,8 +93,8 @@ const SideBar = ({ setMobileOpen }) => {
                   },
                 }}
               >
-                <ListItemIcon>
-                  <GenreImages src={Icons[label.toLowerCase()]} height={30} />
+                <ListItemIcon className="w-10 h-10">
+                  <GenreImages src={Icons[label.toLowerCase()]} />
                 </ListItemIcon>
                 <ListItemText primary={label} />
               </ListItem>
@@ -123,8 +123,8 @@ const SideBar = ({ setMobileOpen }) => {
                     },
                   }}
                 >
-                  <ListItemIcon>
-                    <GenreImages src={Icons[name.toLowerCase()]} height={30} />
+                  <ListItemIcon className="w-10 h-10">
+                    <GenreImages src={Icons[name.toLowerCase()]} height={20} />
                   </ListItemIcon>
                   <ListItemText primary={name} />
                 </ListItem>
