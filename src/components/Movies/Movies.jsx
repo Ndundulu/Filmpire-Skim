@@ -4,7 +4,6 @@ import { useGetMoviesQuery } from "../../services/TMDB";
 import { MovieList } from "../componentExport";
 import { useSelector } from "react-redux";
 import Pagination from "../Pagination/Pagination";
-import PopularMoviesSlider from "../PopularMoviesSlider/PopularMoviesSlider";
 
 const Movies = () => {
   const [page, setPage] = useState(1);
@@ -20,9 +19,6 @@ const Movies = () => {
 
   const numberOfMovies = lg ? 18 : 20;
 
-  // Show slider only on homepage (no search or genre filter)
-  const showSlider = !genreIdOrCategoryName && !searchQuery;
-
   if (isLoading) return <CircularProgress />;
   if (error)
     return (
@@ -32,7 +28,6 @@ const Movies = () => {
   // Pass data even if it's undefined—let MovieList handle it
   return (
     <div>
-      {showSlider && <PopularMoviesSlider />}
       <MovieList movies={data} numberOfMovies={numberOfMovies} />
       <Pagination
         currentPage={page}
