@@ -55,7 +55,7 @@ const SideBar = ({ setMobileOpen }) => {
           alt="Filmpire logo"
         />
       </StyleLink>
-      <Divider />
+
       <Box
         sx={{
           flex: 1,

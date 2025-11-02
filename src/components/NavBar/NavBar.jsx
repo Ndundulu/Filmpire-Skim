@@ -51,7 +51,7 @@ const NavBar = () => {
 
     return (
         <>
-            <StyledAppBar position="fixed">
+            <StyledAppBar position="fixed" className="bg-black/20">
                 <StyledToolbar>
                     {isMobile && (
                         <StyledIconButton color="inherit" edge="start" onClick={() => setMobileOpen(!mobileOpen)}>
